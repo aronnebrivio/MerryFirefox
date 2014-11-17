@@ -1,7 +1,20 @@
+//device is in normal position
+top=false;
+
+//device is in top-down position 
+down=false;
 $(document).ready(function() {
 	console.log("Loaded.");
-	window.addEventListener("devicemotion", function(e){
-		console.log(e.rotationRate)
+	window.addEventListener("deviceorientation", function(e){
+		if(e.beta>80||e.beta<110)
+		    top=true;
+		if(e.beta<-80 && e.beta>-110)
+		    down=true;
+		if(top&&down){
+		    down=false;
+		    top=false;
+		    doSmt();
+		}
 	}, true);
 	//window.ondevicemotion = function() {
 		var s = "<marquee direction='down' scrollamount='"
