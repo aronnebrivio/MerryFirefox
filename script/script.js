@@ -33,4 +33,8 @@ function letItSnow() {
 	for(var i = 0; i < 50; i++) {
 		$('body').append(s + parseInt(Math.random() * 100)%13 + s1 + parseInt(Math.random() * 100) + s2 + parseInt(Math.random() * 100) + s3);
 	}
+	// Snow will stop falling after 10 seconds
+	setTimeout(function () {
+		$('marquee').remove();
+	}, 10000);
 }
