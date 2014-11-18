@@ -1,40 +1,35 @@
-// Some useful variables
-var up = false;
-var down = false;
-var s = "<marquee direction='down' scrollamount='";
-var s1 = "' style='top: 0px; left: ";
-var s2 = "%; height: ";
-var s3 = "%;'>*</marquee>";
-
-$(document).ready(function() {
-
-	window.addEventListener("deviceorientation", function(e){
-		console.log(e.beta);
-		console.log("up = " + up);
-		console.log("down = " + down);
-		// Handling device rotation
-		if(down) {
-			if(e.beta > 80 && e.beta < 110)
-				up=true;
-		}
-		if(e.beta < -80 && e.beta > -110)
-			down=true;
-		if(up && down){
-			console.log("UP & DOWN!!!");
-			letItSnow();
-			down=false;
-			up=false;
-		}
-	}, true);
-
-});
-	
-function letItSnow() {
-	for(var i = 0; i < 50; i++) {
-		$('body').append(s + parseInt(Math.random() * 100)%13 + s1 + parseInt(Math.random() * 100) + s2 + parseInt(Math.random() * 100) + s3);
+console.log("asd");
+window.onload = function() {
+	console.log("Loaded!");
+	var w = window.innerWidth;
+	var h = window.innerHeight;
+	var game = new Phaser.Game(w, h, Phaser.AUTO, '', {
+		preload: preload,
+		create: create,
+		render: render
+	});
+	function preload() {
+		// Sprites here ...
+		game.load.image('flake', 'style/sprites/flake.png');
 	}
-	// Snow will stop falling after 10 seconds
-	setTimeout(function () {
-		$('marquee').remove();
-	}, 10000);
+
+	var flake;
+	
+	function create() {
+		game.stage.backgroundColor = '#3B5998';
+		//  We're going to be using physics, so enable the Arcade Physics system
+		game.physics.startSystem(Phaser.Physics.ARCADE);
+		game.physics.arcade.gravity.y = 100;
+
+		// Adding sprite
+		flake = game.add.sprite(100, 96, 'flake');
+		// Adding physic to sprite1
+		game.physics.enable( [ flake ], Phaser.Physics.ARCADE);
+
+	 	flake.body.collideWorldBounds = true;
+		// Coefficente di rimbalzo
+		flake.body.bounce.y = 0;
+	}
+	function render() {
+	}
 }
