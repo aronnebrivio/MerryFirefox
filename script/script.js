@@ -1,40 +1,80 @@
-// Some useful variables
-var up = false;
-var down = false;
-var s = "<marquee direction='down' scrollamount='";
-var s1 = "' style='top: 0px; left: ";
-var s2 = "%; height: ";
-var s3 = "%;'>*</marquee>";
+var s1 = "<canvas id='my_canvas' widht='";
+var s2 = "' height='";
+var s3 = "'></canvas>";
+
+var MerryFirefox = {};
+
+MerryFirefox.printFlake = function (deepness) {
+	var flake = Physics.body('circle', {
+		x: (Math.random()*10000)%(w-5),
+		y: 5,
+		radius: 5
+	});
+	world.add(flake);
+	world.render();
+	if (deepness < 50) {
+		setTimeout(function() {
+			console.log(deepness)
+			deepness++;
+			printFlake(deepness);
+		}, 500);
+	}
+}
 
 $(document).ready(function() {
-
-	window.addEventListener("deviceorientation", function(e){
-		console.log(e.beta);
-		console.log("up = " + up);
-		console.log("down = " + down);
-		// Handling device rotation
-		if(down) {
-			if(e.beta > 80 && e.beta < 110)
-				up=true;
-		}
-		if(e.beta < -80 && e.beta > -110)
-			down=true;
-		if(up && down){
-			console.log("UP & DOWN!!!");
-			letItSnow();
-			down=false;
-			up=false;
-		}
-	}, true);
-
-});
+	var h = $("body").height();
+	var w = $("body").width();
+	$("body").append(s1 + w + s2 + h + s3);
 	
-function letItSnow() {
-	for(var i = 0; i < 50; i++) {
-		$('body').append(s + parseInt(Math.random() * 100)%13 + s1 + parseInt(Math.random() * 100) + s2 + parseInt(Math.random() * 100) + s3);
+	Physics(function(world) {
+		var renderer = Physics.renderer('canvas', {
+			el: 'my_canvas', // id of the canvas element
+			width: w,
+			height: h
+		});
+		world.add(renderer);
+
+		(function printFlake (deepness) {
+	var flake = Physics.body('circle', {
+		x: (Math.random()*10000)%(w-5),
+		y: 5,
+		radius: 5
+	});
+	world.add(flake);
+	world.render();
+	if (deepness < 50) {
+		setTimeout(function() {
+			console.log(deepness);
+			deepness = deepness + 1;
+			printFlake(deepness);
+		}, 10);
 	}
-	// Snow will stop falling after 10 seconds
-	setTimeout(function () {
-		$('marquee').remove();
-	}, 10000);
-}
+})(0)
+
+		// subscribe to ticker to advance the simulation
+		Physics.util.ticker.on(function(time, dt){
+			world.step(time);
+		});
+		// start the ticker
+		Physics.util.ticker.start();
+
+		// Every steps, it renders
+		world.on('step', function(){
+			world.render();
+		});
+
+		// Let's add gravity
+		world.add(Physics.behavior('constant-acceleration'));
+
+		// Let's define the bounds of the world
+		var bounds = Physics.aabb(0, 0, w, h);
+
+		// Let's add an edge collision detection
+		world.add( Physics.behavior('edge-collision-detection', {
+			aabb: bounds,
+			restitution: 0.3
+		}) );
+		// Ensure objects bounce when edge collision is detected
+		world.add( Physics.behavior('body-impulse-response') );
+	});
+});
