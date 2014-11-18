@@ -2,25 +2,6 @@ var s1 = "<canvas id='my_canvas' widht='";
 var s2 = "' height='";
 var s3 = "'></canvas>";
 
-var MerryFirefox = {};
-
-MerryFirefox.printFlake = function (deepness) {
-	var flake = Physics.body('circle', {
-		x: (Math.random()*10000)%(w-5),
-		y: 5,
-		radius: 5
-	});
-	world.add(flake);
-	world.render();
-	if (deepness < 50) {
-		setTimeout(function() {
-			console.log(deepness)
-			deepness++;
-			printFlake(deepness);
-		}, 500);
-	}
-}
-
 $(document).ready(function() {
 	var h = $("body").height();
 	var w = $("body").width();
@@ -35,21 +16,21 @@ $(document).ready(function() {
 		world.add(renderer);
 
 		(function printFlake (deepness) {
-	var flake = Physics.body('circle', {
-		x: (Math.random()*10000)%(w-5),
-		y: 5,
-		radius: 5
-	});
-	world.add(flake);
-	world.render();
-	if (deepness < 50) {
-		setTimeout(function() {
-			console.log(deepness);
-			deepness = deepness + 1;
-			printFlake(deepness);
-		}, 10);
-	}
-})(0)
+			var flake = Physics.body('circle', {
+					x: (Math.random()*10000)%(w-5),
+					y: 5,
+					radius: 5
+			});
+			world.add(flake);
+			world.render();
+			if (deepness < 50) {
+				setTimeout(function() {
+					console.log(deepness);
+					deepness = deepness + 1;
+					printFlake(deepness);
+				}, 10);
+			}
+		})(0)
 
 		// subscribe to ticker to advance the simulation
 		Physics.util.ticker.on(function(time, dt){
