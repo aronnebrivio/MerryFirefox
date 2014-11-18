@@ -3,8 +3,8 @@ var s2 = "' height='";
 var s3 = "'></canvas>";
 
 $(document).ready(function() {
-	var h = $("body").height();
-	var w = $("body").width();
+	var h = window.innerHeight;
+	var w = window.innerWidth;
 	$("body").append(s1 + w + s2 + h + s3);
 	
 	Physics(function(world) {
@@ -57,5 +57,8 @@ $(document).ready(function() {
 		}) );
 		// Ensure objects bounce when edge collision is detected
 		world.add( Physics.behavior('body-impulse-response') );
+
+		world.add(Physics.behavior('body-collision-detection'));
+		world.add(Physics.behavior('sweep-prune'));
 	});
 });
