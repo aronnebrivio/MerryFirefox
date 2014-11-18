@@ -17,8 +17,18 @@ window.onload = function() {
 		game.stage.backgroundColor = '#3B5998';
 		//  We're going to be using physics, so enable the Arcade Physics system
 		game.physics.startSystem(Phaser.Physics.ARCADE);
-		game.physics.arcade.gravity.y = 100;
+		game.physics.arcade.gravity.y = 300;
 
+		/*window.addEventListener("deviceorientation", function(e){
+			console.log(e.beta);
+			console.log("up = " + up);
+			console.log("down = " + down);
+			// Handling device rotation
+			if(e.beta > 80 && e.beta < 110)
+				game.physics.arcade.gravity.y = 100;
+			if(e.beta < -80 && e.beta > -110)
+				game.physics.arcade.gravity.y = -100;
+		}, true);*/
 		// Adding sprite
 		addFlake(0);
 	}
@@ -32,6 +42,9 @@ window.onload = function() {
 		flake.body.collideWorldBounds = true;
 		// Coefficente di rimbalzo
 		flake.body.bounce.y = 0;
+		// Gravità singolo fiocco (= peso)
+		flake.body.gravity.y = -(Math.random()*100)%80;
+
 		if (deepness < 100) {
 			setTimeout(function() {
 				deepness = deepness + 1;
@@ -39,4 +52,11 @@ window.onload = function() {
 			}, 10);
 		}
 	}
+
+	$(document).on('click', '#up', function () {
+		game.physics.arcade.gravity.y = -300;
+	});
+	$(document).on('click', '#down', function () {
+		game.physics.arcade.gravity.y = 300;
+	});
 }
