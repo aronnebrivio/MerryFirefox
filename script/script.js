@@ -60,17 +60,22 @@ window.onload = function() {
 	}
 
 	function addFlake(deepness) {
-		flake = game.add.sprite((Math.random()*10000)%w, 0, 'flake');
+		flake = game.add.sprite((Math.random()*10000)%w, (Math.random()*10000)%h, 'flake');
 		// Adding physic to sprite1
 		game.physics.enable( [ flake ], Phaser.Physics.ARCADE);
 		flake.body.collideWorldBounds = true;
 		// Mass of the flake
 		flake.body.mass = (Math.random()*100)%10;
+		flake.body.solid = true;
 		// Coefficente di rimbalzo
 		flake.body.bounce.y = 0;
 		// Gravità singolo fiocco (= peso)
 		//flake.body.gravity.y = (Math.random()*100)%50;
-
+		// No overlap with other flakes while creating them
+		if (flake.body.embedded) {
+			flake.body.destroy();
+			deepness = deepness - 1;
+		}
 		if (deepness < 100) {
 			//setTimeout(function() {
 				deepness = deepness + 1;
