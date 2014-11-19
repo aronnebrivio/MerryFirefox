@@ -64,10 +64,12 @@ window.onload = function() {
 		// Adding physic to sprite1
 		game.physics.enable( [ flake ], Phaser.Physics.ARCADE);
 		flake.body.collideWorldBounds = true;
+		// Mass of the flake
+		flake.body.mass = (Math.random()*100)%10;
 		// Coefficente di rimbalzo
 		flake.body.bounce.y = 0;
 		// Gravità singolo fiocco (= peso)
-		flake.body.gravity.y = (Math.random()*100)%50;
+		//flake.body.gravity.y = (Math.random()*100)%50;
 
 		if (deepness < 100) {
 			//setTimeout(function() {
