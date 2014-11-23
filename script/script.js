@@ -7,15 +7,16 @@ window.onload = function() {
 		render: render
 	});
 	function preload() {
-		// Sprites here ...
 		game.load.image('flake', 'style/sprites/flake.png');
+		game.load.physics('flakePhysic', 'style/sprites/flake.json');
 	}
 
 	var flake;
 	
 	function create() {
 		game.stage.backgroundColor = '#3B5998';
-		// We're going to be using physics, so enable the Arcade Physics system
+		game.world.setBounds(0, 0, w, h);
+		// Enabling the Arcade Physics system and setting gravity to 0
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 		game.physics.arcade.gravity.y = 0;
 		game.physics.arcade.gravity.x = 0;
@@ -53,30 +54,26 @@ window.onload = function() {
 			else
 				game.physics.arcade.gravity.x = 0;
 		}, true);
-		// Adding sprite
-		addFlake(0);
+		
+		// Adding flakes
+		for (i = 0; i < 100; i++) {
+			flake = game.add.sprite((Math.random()*10000)%w, (Math.random()*10000)%h, 'flake');
+			// Adding physic to the flakes (dunno which is the best method ><)
+			game.physics.arcade.enableBody(flake, true);
+			//game.physics.enable( [ flake ], Phaser.Physics.ARCADE);
+		
+			flake.body.collideWorldBounds = true;
+			//Bounce = 0 bc they are snow flakes!
+			flake.body.bounce.y = 0;
+		
+			//Mass of the flake (doesn't work...)
+			flake.body.mass = (Math.random()*100)%10;
+			//flake.body.solid = true;
+		}
 	}
+	
 	function render() {
 	}
-
-	function addFlake(deepness) {
-		flake = game.add.sprite((Math.random()*10000)%w, (Math.random()*10000)%h, 'flake');
-		// Adding physic to the flakes
-		game.physics.enable( [ flake ], Phaser.Physics.ARCADE);
-		flake.body.collideWorldBounds = true;
-		// Mass of the flake (doesn't work...)
-		flake.body.mass = (Math.random()*100)%10;
-		flake.body.solid = true;
-		// Bounch = 0 bc they are snow flakes!
-		flake.body.bounce.y = 0;
-		// No overlap with other flakes while creating them (I think it doesn't work...)
-		if (flake.body.embedded) {
-			flake.body.destroy();
-			deepness = deepness - 1;
-		}
-		if (deepness < 100) {
-				deepness = deepness + 1;
-				addFlake(deepness);
-		}
-	}
 }
+
+
