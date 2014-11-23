@@ -8,7 +8,7 @@ window.onload = function() {
 	});
 	function preload() {
 		game.load.image('flake', 'style/sprites/flake.png');
-		game.load.physics('flakePhysic', 'style/sprites/flake.json');
+		game.load.physics('flakePhysics', 'style/sprites/flake.json');
 	}
 
 	var flake;
@@ -65,7 +65,10 @@ window.onload = function() {
 			flake.body.collideWorldBounds = true;
 			//Bounce = 0 bc they are snow flakes!
 			flake.body.bounce.y = 0;
-		
+			flake.body.bounce.x = 0;
+
+			flake.body.density = 2;
+			
 			//Mass of the flake (doesn't work...)
 			flake.body.mass = (Math.random()*100)%10;
 			//flake.body.solid = true;
