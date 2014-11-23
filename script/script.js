@@ -15,7 +15,7 @@ window.onload = function() {
 	
 	function create() {
 		game.stage.backgroundColor = '#3B5998';
-		//  We're going to be using physics, so enable the Arcade Physics system
+		// We're going to be using physics, so enable the Arcade Physics system
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 		game.physics.arcade.gravity.y = 0;
 		game.physics.arcade.gravity.x = 0;
@@ -61,26 +61,22 @@ window.onload = function() {
 
 	function addFlake(deepness) {
 		flake = game.add.sprite((Math.random()*10000)%w, (Math.random()*10000)%h, 'flake');
-		// Adding physic to sprite1
+		// Adding physic to the flakes
 		game.physics.enable( [ flake ], Phaser.Physics.ARCADE);
 		flake.body.collideWorldBounds = true;
-		// Mass of the flake
+		// Mass of the flake (doesn't work...)
 		flake.body.mass = (Math.random()*100)%10;
 		flake.body.solid = true;
-		// Coefficente di rimbalzo
+		// Bounch = 0 bc they are snow flakes!
 		flake.body.bounce.y = 0;
-		// Gravità singolo fiocco (= peso)
-		//flake.body.gravity.y = (Math.random()*100)%50;
-		// No overlap with other flakes while creating them
+		// No overlap with other flakes while creating them (I think it doesn't work...)
 		if (flake.body.embedded) {
 			flake.body.destroy();
 			deepness = deepness - 1;
 		}
 		if (deepness < 100) {
-			//setTimeout(function() {
 				deepness = deepness + 1;
 				addFlake(deepness);
-			//}, 10);
 		}
 	}
 }
