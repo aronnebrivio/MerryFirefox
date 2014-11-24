@@ -18,7 +18,7 @@ window.onload = function() {
 		game.world.setBounds(0, 0, w, h);
 		// Enabling the Arcade Physics system and setting gravity to 0
 		game.physics.startSystem(Phaser.Physics.ARCADE);
-		game.physics.arcade.gravity.y = 20;
+		game.physics.arcade.gravity.y = 0;
 		game.physics.arcade.gravity.x = 0;
 
 		// Handling device rotation
@@ -59,61 +59,16 @@ window.onload = function() {
 		flakes=Array();
 		for (i = 0; i < 100; i++) {
 			flake = game.add.sprite((Math.random()*10000)%w, (Math.random()*10000)%h, 'flake');
-			// Adding physic to the flakes (dunno which is the best method ><)
+			// Adding physic to the flakes
 			game.physics.arcade.enableBody(flake, true);
-			//game.physics.enable( [ flake ], Phaser.Physics.ARCADE);
 		
 			flake.body.collideWorldBounds = true;
 			//Bounce = 0 bc they are snow flakes!
 			flake.body.bounce.y = 0;
 			flake.body.bounce.x = 0;
 
-			flake.body.density = 2;
-			
-			//Mass of the flake (doesn't work...)
-			flake.body.mass = (Math.random()*100)%10;
-			//flake.body.solid = true;
 			flakes[flakes.length]=flake;
 		}
-		
-		for(i=0;i<100;i++){
-		    for(j=0;j<100;j++){
-		        game.physics.arcade.collide(flakes[i],flakes[j]);
-		    }
-		}/*
-		
-		    flake = game.add.sprite(50, 50, 'flake');
-			// Adding physic to the flakes (dunno which is the best method ><)
-			game.physics.arcade.enableBody(flake, true);
-			//game.physics.enable( [ flake ], Phaser.Physics.ARCADE);
-		
-			flake.body.collideWorldBounds = true;
-			//Bounce = 0 bc they are snow flakes!
-			flake.body.bounce.y = 0;
-			flake.body.bounce.x = 0;
-
-			//flake.body.density = 2;
-			
-			//Mass of the flake (doesn't work...)
-			//flake.body.mass = (Math.random()*100)%10;
-		
-		    flake1 = game.add.sprite(100, 50, 'flake');
-			// Adding physic to the flakes (dunno which is the best method ><)
-			game.physics.arcade.enableBody(flake1, true);
-			//game.physics.enable( [ flake ], Phaser.Physics.ARCADE);
-		
-			flake1.body.collideWorldBounds = true;
-			//Bounce = 0 bc they are snow flakes!
-			flake1.body.bounce.y = 0;
-			flake1.body.bounce.x = 0;
-
-			//flake1.body.density = 2;
-			
-			//Mass of the flake (doesn't work...)
-			//flake1.body.mass = (Math.random()*100)%10;
-		    */
-		    
-		
 	}
 	
 	function update(){
