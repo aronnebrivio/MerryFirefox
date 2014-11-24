@@ -8,7 +8,6 @@ window.onload = function() {
 	});
 	function preload() {
 		game.load.image('flake', 'style/sprites/flake.png');
-		game.load.physics('flakePhysics', 'style/sprites/flake.json');
 	}
 
 	var flake;
