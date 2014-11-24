@@ -18,7 +18,7 @@ window.onload = function() {
 		game.world.setBounds(0, 0, w, h);
 		// Enabling the Arcade Physics system and setting gravity to 0
 		game.physics.startSystem(Phaser.Physics.ARCADE);
-		game.physics.arcade.gravity.y = 20;
+		game.physics.arcade.gravity.y = 100;
 		game.physics.arcade.gravity.x = 0;
 
 		// Handling device rotation
