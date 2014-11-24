@@ -8,6 +8,7 @@ window.onload = function() {
 	});
 	function preload() {
 		game.load.image('flake', 'style/sprites/flake.png');
+		//game.load.spritesheet('flake', 'style/sprites/flakesheet.png', 15, 15);
 	}
 
 	var flake;
@@ -63,15 +64,19 @@ window.onload = function() {
 		
 			flake.body.collideWorldBounds = true;
 			//Bounce = 0 bc they are snow flakes!
-			flake.body.bounce.y = 0;
-			flake.body.bounce.x = 0;
+			flake.body.bounce.y = 0.1;
+			flake.body.bounce.x = 0.1;
 
+			//flake.animations.add('rotate', [0, 1], 10, true);
 			flakes[flakes.length]=flake;
 		}
 	}
 	
 	function update(){
 	    game.physics.arcade.collide(flakes,flakes);
+	    /*for(flake in flakes) {
+	    	flake.animations.play('rotate'); console.log(flake);
+	    }*/
 	}
 }
 
