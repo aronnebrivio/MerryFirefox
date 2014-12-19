@@ -8,21 +8,24 @@ window.onload = function() {
 	});
 	function preload() {
 		game.load.image('flake', 'style/sprites/flake.png');
-		//game.load.spritesheet('flake', 'style/sprites/flakesheet.png', 15, 15);
 	}
 
-	var flake;
+	var flake, flakes;
 	
 	function create() {
 		game.stage.backgroundColor = '#3B5998';
 		game.world.setBounds(0, 0, w, h);
-		// Enabling the Arcade Physics system and setting gravity to 0
+		// Enabling the Arcade Physics system
 		game.physics.startSystem(Phaser.Physics.ARCADE);
-		game.physics.arcade.gravity.y = 0;
-		game.physics.arcade.gravity.x = 0;
-
+		
 		// Handling device rotation
 		window.addEventListener("deviceorientation", function(e){
+			/*var x = e.gamma; // range [-90,90]
+			var y = e.beta;  // range [-180,180]
+			console.log("ok");
+			game.physics.arcade.gravity.x += x/4;
+			game.physics.arcade.gravity.y += y/8;*/
+		
 			// Handling device up-down rotation
 			if(e.beta > 80 && e.beta <= 110)
 				game.physics.arcade.gravity.y = 200;
@@ -56,27 +59,23 @@ window.onload = function() {
 		}, true);
 		
 		// Adding flakes
-		flakes=Array();
+		flakes = [];
 		for (i = 0; i < 100; i++) {
 			flake = game.add.sprite((Math.random()*10000)%w, (Math.random()*10000)%h, 'flake');
-			// Adding physic to the flakes
 			game.physics.arcade.enableBody(flake, true);
-		
+			//flake.body.mass = Math.floor((Math.random() * 2.5) + 1);
+			console.log("flake number " + i + " mass: " + flake.body.mass);
 			flake.body.collideWorldBounds = true;
 			//Bounce = 0 bc they are snow flakes!
-			flake.body.bounce.y = 0.1;
-			flake.body.bounce.x = 0.1;
-
-			//flake.animations.add('rotate', [0, 1], 10, true);
-			flakes[flakes.length]=flake;
+			flake.body.bounce.y = 0;
+			flake.body.bounce.x = 0;
+			
+			flakes[i] = flake;
 		}
 	}
 	
 	function update(){
 	    game.physics.arcade.collide(flakes,flakes);
-	    /*for(flake in flakes) {
-	    	flake.animations.play('rotate'); console.log(flake);
-	    }*/
 	}
 }
 
