@@ -32,32 +32,32 @@ window.onload = function() {
 		
 			// Handling device up-down rotation
 			if(e.beta > 80 && e.beta <= 110)
-				game.physics.arcade.gravity.y = 200;
+				game.physics.arcade.gravity.y = 150;
 			else if(e.beta > 55 && e.beta <= 80)
-				game.physics.arcade.gravity.y = 100;
+				game.physics.arcade.gravity.y = 75;
 			else if(e.beta > 20 && e.beta <= 55)
-				game.physics.arcade.gravity.y = 50;
+				game.physics.arcade.gravity.y = 25;
 			else if(e.beta < -20 && e.beta >= -55)
-				game.physics.arcade.gravity.y = -50;
+				game.physics.arcade.gravity.y = -25;
 			else if(e.beta < -55 && e.beta >= -80)
-				game.physics.arcade.gravity.y = -100;
+				game.physics.arcade.gravity.y = -75;
 			else if(e.beta < -80 && e.beta > -110)
-				game.physics.arcade.gravity.y = -200;
+				game.physics.arcade.gravity.y = -150;
 			else
 				game.physics.arcade.gravity.y = 0;
 			// Handling device left-right rotation
 			if(e.gamma > 80 && e.gamma <= 110)
-				game.physics.arcade.gravity.x = 200;
+				game.physics.arcade.gravity.x = 150;
 			else if(e.gamma > 55 && e.gamma <= 80)
-				game.physics.arcade.gravity.x = 100;
+				game.physics.arcade.gravity.x = 75;
 			else if(e.gamma > 20 && e.gamma <= 55)
-				game.physics.arcade.gravity.x = 50;
+				game.physics.arcade.gravity.x = 25;
 			else if(e.gamma < -20 && e.gamma >= -55)
-				game.physics.arcade.gravity.x = -50;
+				game.physics.arcade.gravity.x = -25;
 			else if(e.gamma < -55 && e.gamma >= -80)
-				game.physics.arcade.gravity.x = -100;
+				game.physics.arcade.gravity.x = -75;
 			else if(e.gamma < -80 && e.gamma > -110)
-				game.physics.arcade.gravity.x = -200;
+				game.physics.arcade.gravity.x = -150;
 			else
 				game.physics.arcade.gravity.x = 0;
 		}, true);
@@ -86,6 +86,7 @@ window.onload = function() {
 		}
 		for (i = 0; i < 33; i++) {
 			flake = game.add.sprite((Math.random()*10000)%w, (Math.random()*10000)%h, 'flake1');
+			flake.angle = Math.floor((Math.random()*45)+1);
 			flake.scale.setTo(0.2, 0.2);
 			game.physics.arcade.enableBody(flake, true);
 			flake.body.collideWorldBounds = true;
@@ -97,6 +98,7 @@ window.onload = function() {
 		}
 		for (i = 33; i < 66; i++) {
 			flake = game.add.sprite((Math.random()*10000)%w, (Math.random()*10000)%h, 'flake2');
+			flake.angle = Math.floor((Math.random()*45)+1);
 			flake.scale.setTo(0.15, 0.15);
 			game.physics.arcade.enableBody(flake, true);
 			flake.body.collideWorldBounds = true;
@@ -108,6 +110,7 @@ window.onload = function() {
 		}
 		for (i = 66; i < 100; i++) {
 			flake = game.add.sprite((Math.random()*10000)%w, (Math.random()*10000)%h, 'flake3');
+			flake.angle = Math.floor((Math.random()*45)+1);
 			flake.scale.setTo(0.12, 0.12);
 			game.physics.arcade.enableBody(flake, true);
 			flake.body.collideWorldBounds = true;
