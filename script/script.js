@@ -8,6 +8,7 @@ window.onload = function() {
 	});
 	function preload() {
 		game.load.image('flake', 'style/sprites/flake.png');
+		game.load.image('flake2', 'style/sprites/flake2.png');
 	}
 
 	var flake, flakes;
@@ -17,6 +18,9 @@ window.onload = function() {
 		game.world.setBounds(0, 0, w, h);
 		// Enabling the Arcade Physics system
 		game.physics.startSystem(Phaser.Physics.ARCADE);
+		
+		flakes = [];
+		addFlakes(false);
 		
 		// Handling device rotation
 		window.addEventListener("deviceorientation", function(e){
@@ -58,24 +62,53 @@ window.onload = function() {
 				game.physics.arcade.gravity.x = 0;
 		}, true);
 		
-		// Adding flakes
-		flakes = [];
-		for (i = 0; i < 100; i++) {
-			flake = game.add.sprite((Math.random()*10000)%w, (Math.random()*10000)%h, 'flake');
-			game.physics.arcade.enableBody(flake, true);
-			//flake.body.mass = Math.floor((Math.random() * 2.5) + 1);
-			console.log("flake number " + i + " mass: " + flake.body.mass);
-			flake.body.collideWorldBounds = true;
-			//Bounce = 0 bc they are snow flakes!
-			flake.body.bounce.y = 0;
-			flake.body.bounce.x = 0;
-			
-			flakes[i] = flake;
-		}
+		// Handlink shake event
+		var myShakeEvent = new Shake({
+			threshold: 15 // optional shake strength threshold
+		});
+		myShakeEvent.start();
+
+		window.addEventListener('shake', function(e) {
+			console.log("shaking!");
+			addFlakes(true);
+		}, false);
 	}
 	
 	function update(){
 	    game.physics.arcade.collide(flakes,flakes);
+	}
+	
+	// Adding flakes
+	function addFlakes(rm) {
+		if(rm) {
+			for (i = 0; i < 100; i++) {
+				flakes[i].destroy();
+			}
+		}
+		for (i = 0; i < 50; i++) {
+			flake = game.add.sprite((Math.random()*10000)%w, (Math.random()*10000)%h, 'flake');
+			game.physics.arcade.enableBody(flake, true);
+			//flake.body.mass = Math.floor((Math.random() * 2.5) + 1);
+			//console.log("flake number " + i + " mass: " + flake.body.mass);
+			flake.body.collideWorldBounds = true;
+			//Bounce = 0 bc they are snow flakes!
+			flake.body.bounce.y = 0;
+			flake.body.bounce.x = 0;
+		
+			flakes[i] = flake;
+		}
+		for (i = 50; i < 100; i++) {
+			flake = game.add.sprite((Math.random()*10000)%w, (Math.random()*10000)%h, 'flake2');
+			game.physics.arcade.enableBody(flake, true);
+			//flake.body.mass = Math.floor((Math.random() * 2.5) + 1);
+			//console.log("flake number " + i + " mass: " + flake.body.mass);
+			flake.body.collideWorldBounds = true;
+			//Bounce = 0 bc they are snow flakes!
+			flake.body.bounce.y = 0;
+			flake.body.bounce.x = 0;
+		
+			flakes[i] = flake;
+		}
 	}
 }
 
