@@ -1,9 +1,18 @@
 {
-    "name": "Merry Firefox!",
-    "description": "---",
-    "version": "0.1",
+    "name": "MerryFirefox",
+    "description": "Let's celebrate Christmas with Firefox!",
+    "version": "1.0",
     "developer": {
-        "name": "aroblu94"
+        "name": "aroblu94",
+        "url": "http://aro94.altervista.org"
     },
-    "launch_path": "/index.html"
+    "launch_path": "/index.html",
+    "fullscreen": "true",
+    "orientation": "portrait-primary",
+    "icons": {
+        "60": "/assets/60x60.png",
+        "90": "/assets/90x90.png",
+        "120": "/assets/120x120.png",
+        "128": "/assets/128x128.png"
+    }
 }

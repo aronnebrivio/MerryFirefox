@@ -1,27 +1,26 @@
 window.onload = function() {
 	var w = window.innerWidth;
 	var h = window.innerHeight;
+	my_body = document.getElementById("my_body");
+	my_body.innerHTML = my_body.innerHTML + "<img src='assets/merryfirefox.png' class='logo'/>";
+	
 	game = new Phaser.Game(w, h, Phaser.AUTO, '', {
 		preload: preload,
 		create: create,
 		update: update
-	});
+	}, true);
 	function preload() {
 		game.load.image('flake1', 'assets/flake1.png');
 		game.load.image('flake2', 'assets/flake2.png');
 		game.load.image('flake3', 'assets/flake3.png');
-		game.load.image('logo', 'assets/merrylogo1.png');
 	}
 
-	var flake, flakes, max=60;
+	var flake, flakes, max=30;
 	
 	function create() {
-		game.stage.backgroundColor = '#3B5998';
 		game.world.setBounds(0, 0, w, h);
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 		
-		logo = game.add.sprite(w/2-150, h/2-80, 'logo');
-		logo.scale.setTo(0.6, 0.6);
 		flakes = [];
 		addFlakes(false);
 		
@@ -71,7 +70,6 @@ window.onload = function() {
 	}
 	
 	function update(){
-		// Currently disabled for bad performances
 	    game.physics.arcade.collide(flakes,flakes);
 	}
 	
@@ -85,7 +83,8 @@ window.onload = function() {
 		for (i = 0; i < max/3; i++) {
 			flake = game.add.sprite((Math.random()*10000)%w, (Math.random()*10000)%h, 'flake1');
 			flake.angle = Math.floor((Math.random()*45)+1);
-			flake.scale.setTo(0.22, 0.22);
+			flake.scale.setTo(0.44, 0.44);
+			//old: flake.scale.setTo(0.22, 0.22);
 			game.physics.arcade.enableBody(flake, true);
 			flake.body.collideWorldBounds = true;
 			//Bounce = 0 bc they are snow flakes!
@@ -97,7 +96,8 @@ window.onload = function() {
 		for (i = max/3; i < max/3*2; i++) {
 			flake = game.add.sprite((Math.random()*10000)%w, (Math.random()*10000)%h, 'flake2');
 			flake.angle = Math.floor((Math.random()*45)+1);
-			flake.scale.setTo(0.18, 0.18);
+			flake.scale.setTo(0.36, 0.36);
+			//old: flake.scale.setTo(0.18, 0.18);
 			game.physics.arcade.enableBody(flake, true);
 			flake.body.collideWorldBounds = true;
 			//Bounce = 0 bc they are snow flakes!
@@ -109,7 +109,8 @@ window.onload = function() {
 		for (i = max/3*2; i < max; i++) {
 			flake = game.add.sprite((Math.random()*10000)%w, (Math.random()*10000)%h, 'flake3');
 			flake.angle = Math.floor((Math.random()*45)+1);
-			flake.scale.setTo(0.15, 0.15);
+			flake.scale.setTo(0.30, 0.30);
+			//old: flake.scale.setTo(0.15, 0.15);
 			game.physics.arcade.enableBody(flake, true);
 			flake.body.collideWorldBounds = true;
 			//Bounce = 0 bc they are snow flakes!
