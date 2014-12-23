@@ -1,6 +1,5 @@
-marquee {
-	behavior: scroll; 
-	color: #fff;
+.logo {
+	max-width: 100%;
 	position: absolute;
-	width: 10px;
+	z-index: -1;
 }
